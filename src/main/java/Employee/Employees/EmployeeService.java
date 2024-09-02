@@ -7,7 +7,7 @@ import java.util.ArrayList;
 @Service
 public class EmployeeService {
     static final int MAX_EMPLOYEES = 5;
-    ArrayList<Employees> employees = new ArrayList<Employees>();
+    ArrayList<Employees> employees = new ArrayList<>();
 
     public EmployeeService(ArrayList<Employees> employees) {
         this.employees = employees;
