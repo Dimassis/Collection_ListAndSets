@@ -1,13 +1,12 @@
 package Employee.Employees;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
-public class Employees {
+public class Employee {
     private final String firstName;
     private final String lastName;
 
-    public Employees(String firstName, String lastName) {
+    public Employee(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -20,11 +19,15 @@ public class Employees {
         return lastName;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Employees employees = (Employees) o;
+        Employee employees = (Employee) o;
         return Objects.equals(firstName, employees.firstName) && Objects.equals(lastName, employees.lastName);
     }
 
