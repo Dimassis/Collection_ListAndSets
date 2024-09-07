@@ -16,9 +16,11 @@ public class EmployeeController {
 
     @GetMapping(path = "/add")
     public String addEmployee(@RequestParam(value = "firstName") String firstName,
-                              @RequestParam(value = "lastName") String lastName) {
+                              @RequestParam(value = "lastName") String lastName,
+                                @RequestParam(value = "salary") int salary,
+                                @RequestParam(value = "depId") int depId) {
         try {
-            employeeService.addEmployee(firstName, lastName);
+            employeeService.addEmployee(firstName, lastName , salary, depId);
             return "Сотрудник " + firstName + " " + lastName + " добавлен";
         } catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e) {
             return e.getMessage();
@@ -48,7 +50,7 @@ public class EmployeeController {
     @GetMapping(path = "/all")
     public String allEmployee (){
         try {
-           return employeeService.allEmployee();
+           return employeeService.allEmployee().toString();
         } catch (EmployeeNotFoundException e) {
             return e.getMessage();
         }
