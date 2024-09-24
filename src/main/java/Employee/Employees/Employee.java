@@ -5,18 +5,22 @@ import java.util.Objects;
 public class Employee {
     private final String firstName;
     private final String lastName;
+    private final int salary;
+    private final int deportmentId;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, int salary, int deportmentId) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.salary = salary;
+        this.deportmentId = deportmentId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public int getSalary() {
+        return salary;
     }
 
-    public String getLastName() {
-        return lastName;
+    public int getDeportmentId() {
+        return deportmentId;
     }
 
     public String getFullName() {
@@ -38,7 +42,8 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Имя: " + firstName +
-                ", Фамилия: " + lastName;
+        return
+                ", salary=" + salary +
+                ", deportmentId=" + deportmentId;
     }
 }

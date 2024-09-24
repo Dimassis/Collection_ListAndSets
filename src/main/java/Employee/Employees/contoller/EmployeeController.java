@@ -1,9 +1,16 @@
-package Employee.Employees;
+package Employee.Employees.contoller;
 
+import Employee.Employees.*;
+import Employee.Employees.exception.EmployeeAlreadyAddedException;
+import Employee.Employees.exception.EmployeeNotFoundException;
+import Employee.Employees.exception.EmployeeStorageIsFullException;
+import Employee.Employees.service.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/employee")
@@ -31,14 +38,16 @@ public class EmployeeController {
     public String removeEmployee(@RequestParam(value = "firstName") String firstName,
                                  @RequestParam(value = "lastName") String lastName) {
         try {
+           Employee employee = new Employee(firstName, lastName, 0, 0);
             employeeService.removeEmployee(firstName, lastName);
             return "Сотрудник " + firstName + " " + lastName + " удален";
         } catch (EmployeeNotFoundException e) {
             return e.getMessage();
         }
     }
-        @GetMapping(path = "/find")
-        public String findEmployee (@RequestParam(value = "firstName") String firstName,
+
+    @GetMapping(path = "/find")
+    public String findEmployee (@RequestParam(value = "firstName") String firstName,
                                     @RequestParam(value = "lastName") String lastName){
             try {
                 employeeService.findEmployee(firstName, lastName);
@@ -47,6 +56,7 @@ public class EmployeeController {
                 return e.getMessage();
             }
         }
+
     @GetMapping(path = "/all")
     public String allEmployee (){
         try {
@@ -56,4 +66,24 @@ public class EmployeeController {
         }
     }
 
+   @GetMapping(path = "/departments/max-salary")
+    public String maxSalaryDeportment  (@RequestParam(value = "department") int deportment) {
+       return "Максимальная зп у сотрудника из " + deportment + " отдела у "
+               + employeeService.maxSalaryDepartment(deportment);
     }
+
+    @GetMapping(path =  "/departments/min-salary")
+    public String minSalaryDeportment  (@RequestParam(value = "department") int deportment) {
+        return employeeService.minSalaryDepartment(deportment);
+    }
+
+    @GetMapping(path = "/departments/all")
+    public Map<String, Employee> getEmployeesDepartment (@RequestParam(value = "department") int department) {
+        return employeeService.getEmployeesDepartment(department);
+        }
+
+    @GetMapping(path = "/departments/allsort")
+    public Map<String, Employee> getSortedDeportment() {
+        return employeeService.getSortedDepartment();
+    }
+}
