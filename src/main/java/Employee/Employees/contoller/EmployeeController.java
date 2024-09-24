@@ -1,5 +1,10 @@
-package Employee.Employees;
+package Employee.Employees.contoller;
 
+import Employee.Employees.*;
+import Employee.Employees.exception.EmployeeAlreadyAddedException;
+import Employee.Employees.exception.EmployeeNotFoundException;
+import Employee.Employees.exception.EmployeeStorageIsFullException;
+import Employee.Employees.service.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +27,6 @@ public class EmployeeController {
                                 @RequestParam(value = "salary") int salary,
                                 @RequestParam(value = "depId") int depId) {
         try {
-            Employee employee = new Employee(firstName, lastName, salary, depId);
             employeeService.addEmployee(firstName, lastName , salary, depId);
             return "Сотрудник " + firstName + " " + lastName + " добавлен";
         } catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e) {

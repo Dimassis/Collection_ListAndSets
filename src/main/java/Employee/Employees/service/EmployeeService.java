@@ -1,19 +1,23 @@
-package Employee.Employees;
+package Employee.Employees.service;
 
+import Employee.Employees.Employee;
+import Employee.Employees.exception.EmployeeAlreadyAddedException;
+import Employee.Employees.exception.EmployeeNotFoundException;
+import Employee.Employees.exception.EmployeeStorageIsFullException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements Employee.Employees.Interfaces.EmployeeService {
     static final int MAX_EMPLOYEES = 5;
     private final Map<String, Employee> employees;
 
     public EmployeeService() {
         this.employees = new HashMap<>();
     }
-
+    @Override
     public void addEmployee(String firstName, String lastName, int salary, int deportmentId) throws EmployeeAlreadyAddedException, EmployeeStorageIsFullException {
         if (employees.size() >= MAX_EMPLOYEES) {
             throw new EmployeeStorageIsFullException("У вас максимальное колво сотрудников");
@@ -24,7 +28,7 @@ public class EmployeeService {
         }
         employees.put(employee.getFullName(), employee);
     }
-
+    @Override
     public void removeEmployee(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee employee = new Employee(firstName, lastName, 0, 0);
         if (!employees.containsKey(employee.getFullName())) {
@@ -32,7 +36,7 @@ public class EmployeeService {
         }
         employees.remove(employee.getFullName());
     }
-
+    @Override
     public void findEmployee(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee employee = new Employee(firstName, lastName, 0, 0);
         if (employee.getFullName() == null) {
@@ -40,7 +44,7 @@ public class EmployeeService {
         }
         employee.toString();
     }
-
+    @Override
     public Map<String, Employee> allEmployee() throws EmployeeNotFoundException {
         if (employees.isEmpty()) {
             throw new EmployeeNotFoundException("Нет сотрудников");
