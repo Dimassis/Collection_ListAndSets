@@ -4,6 +4,7 @@ import Employee.Employees.*;
 import Employee.Employees.exception.EmployeeAlreadyAddedException;
 import Employee.Employees.exception.EmployeeNotFoundException;
 import Employee.Employees.exception.EmployeeStorageIsFullException;
+import Employee.Employees.exception.EmployeeWrongInputException;
 import Employee.Employees.service.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ public class EmployeeController {
         try {
             employeeService.addEmployee(firstName, lastName , salary, depId);
             return "Сотрудник " + firstName + " " + lastName + " добавлен";
-        } catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e) {
+        } catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException | EmployeeWrongInputException e) {
             return e.getMessage();
         }
     }
@@ -86,4 +87,5 @@ public class EmployeeController {
     public Map<String, Employee> getSortedDeportment() {
         return employeeService.getSortedDepartment();
     }
+
 }
