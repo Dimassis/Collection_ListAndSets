@@ -1,4 +1,4 @@
-package Employee.Employees;
+package Employee.Employees.modul;
 
 import java.util.Objects;
 
@@ -13,6 +13,14 @@ public class Employee {
         this.lastName = lastName;
         this.salary = salary;
         this.deportmentId = deportmentId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public int getSalary() {
